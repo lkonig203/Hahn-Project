@@ -45,7 +45,7 @@ def parseNewick(inTree):
 
 # Takes in dictionary with node/leaf and distances 
 def break_interval(dist_dict): 
-    interval = 0.5
+    interval = 0.001
     output = {}
     key_values = list(dist_dict.keys())
     for i in range(len(key_values)):
@@ -73,7 +73,7 @@ def mergeDict(input_dict, outputDict):
             else:
                 final.update({element:input_dict[element]})
 
-for i in range(1): 
+for i in range(1000): 
     curr_str = "rep_" + str(i) + ".tre"
     try:
         curr_file = open(curr_str, 'r')
@@ -104,7 +104,7 @@ def findProportion(topology_count_dict): # Takes in a dictionary
     temp_dict = {}
     totalSum = sum(topology_count_dict.values())
     for key, value in topology_count_dict.items():
-        temp_dict[key] = round(value/totalSum, 3)
+        temp_dict[key] = value
     return temp_dict
 
 hold = countTopologies()
@@ -113,4 +113,4 @@ final_output = {}
 for key, value in hold.items(): 
     final_output[key] = findProportion(value)
 
-print(final_output)
+open("/N/u/lkonig/Quartz/Desktop/dupcoal/newfolder/myDictionary.txt", 'w+').write(str(final_output))

@@ -45,7 +45,7 @@ def parseNewick(inTree):
 
 # Takes in dictionary with node/leaf and distances 
 def break_interval(dist_dict): 
-    interval = 0.001
+    interval = 0.2
     output = {}
     key_values = list(dist_dict.keys())
     for i in range(len(key_values)):
@@ -73,14 +73,14 @@ def mergeDict(input_dict, outputDict):
             else:
                 final.update({element:input_dict[element]})
 
-for i in range(1000): 
+for i in range(65000):
+    print(i) 
     curr_str = "rep_" + str(i) + ".tre"
     try:
         curr_file = open(curr_str, 'r')
         this_tree = PhyloTree(curr_file.readline())
         mergeDict(flip_dict(break_interval(parseNewick(this_tree))), final)
     except: 
-        print("File " + str(i) + " is empty.")
         continue
 
 def count_repeated(in_list):
@@ -113,4 +113,4 @@ final_output = {}
 for key, value in hold.items(): 
     final_output[key] = findProportion(value)
 
-open("/N/u/lkonig/Quartz/Desktop/dupcoal/newfolder/myDictionary.txt", 'w+').write(str(final_output))
+open("myDictionary.txt", 'w').write(str(final_output))
